@@ -1,0 +1,275 @@
+<rml>
+<head>
+    <title>Holster</title>
+    <link type="text/rcss" href="holster.rcss"/>
+</head>
+<body data-model="holster">
+
+    <div class="panel" data-if="screen == 'main'">
+        <div class="status" data-if="status != ''">{{ status }}</div>
+        <div class="hdr">
+            <div class="top">
+                <span class="h1">HOLSTER</span>
+                <span class="badge" data-if="mode == 'exp'">EXPERIMENTAL</span>
+                <span class="grow"></span>
+                <button id="to_exp" class="modebtn" data-if="mode != 'exp'">Experimental &#8250;</button>
+                <button id="to_simple" class="modebtn" data-if="mode == 'exp'">Simple mode &#8250;</button>
+            </div>
+            <span class="sub">In hand: <span class="blue">{{ inHand }}</span></span>
+        </div>
+
+        <div class="card" data-if="mode == 'exp' || sIdx == 1">
+            <div class="head">
+                <div class="names">
+                    <span class="label" data-if="mode == 'exp'">SLOT 1</span>
+                    <span class="name" data-class-dim="c1Dim">{{ c1Tool }}</span>
+                    <span class="warn" data-if="c1Warn">Take it in hand once to holster it</span>
+                </div>
+                <button id="c1_show" class="sw"><span class="track" data-class-on="c1ShowOn"><span class="knob"></span></span></button>
+            </div>
+            <button id="c1_typebtn" class="placebtn" data-class-open="c1TypeOpen">
+                <span class="wornon">WORN ON</span><span class="place">{{ c1TypeLabel }}</span>
+                <span data-if="!c1TypeOpen"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="#FFFFFF" stroke-width="2"/></svg></span><span data-if="c1TypeOpen"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 11l5-5 5 5" fill="none" stroke="#FFFFFF" stroke-width="2"/></svg></span>
+            </button>
+            <div class="pop" data-if="c1TypeOpen">
+                <button id="c1_t_belt_l" class="opt" data-class-sel="c1On_belt_l"><span class="txt">{{ c1TL_belt_l }}</span><span class="tag" data-if="c1Tag_belt_l != ''">{{ c1Tag_belt_l }}</span></button><button id="c1_t_belt_r" class="opt" data-class-sel="c1On_belt_r"><span class="txt">{{ c1TL_belt_r }}</span><span class="tag" data-if="c1Tag_belt_r != ''">{{ c1Tag_belt_r }}</span></button><button id="c1_t_thigh_l" class="opt" data-class-sel="c1On_thigh_l"><span class="txt">{{ c1TL_thigh_l }}</span><span class="tag" data-if="c1Tag_thigh_l != ''">{{ c1Tag_thigh_l }}</span></button><button id="c1_t_thigh_r" class="opt" data-class-sel="c1On_thigh_r"><span class="txt">{{ c1TL_thigh_r }}</span><span class="tag" data-if="c1Tag_thigh_r != ''">{{ c1Tag_thigh_r }}</span></button><button id="c1_t_back" class="opt" data-class-sel="c1On_back"><span class="txt">{{ c1TL_back }}</span><span class="tag" data-if="c1Tag_back != ''">{{ c1Tag_back }}</span></button><button id="c1_t_backpack" class="opt" data-class-sel="c1On_backpack"><span class="txt">{{ c1TL_backpack }}</span><span class="tag" data-if="c1Tag_backpack != ''">{{ c1Tag_backpack }}</span></button>
+            </div>
+            <div class="duo">
+                <button id="c1_pick" class="btn2" data-if="mode == 'exp'" data-class-open="c1Open">CHOOSE TOOL</button>
+                <button id="c1_edit" class="btn2">PLACEMENT</button>
+            </div>
+            <div class="pop scroll" data-if="c1Open &amp;&amp; mode == 'exp'">
+                <button id="c1_cur" class="trow" data-if="c1VC" data-class-sel="c1SelC"><span class="icon cur"></span><span class="col"><span class="l">Current tool</span><span class="s">Whichever is in hand</span></span><span class="tag" data-if="c1TC != ''">{{ c1TC }}</span></button><button id="c1_k0" class="trow" data-if="c1V0" data-class-sel="c1Sel0"><span class="icon" data-class-staff="c1K0 == 'staff'"></span><span class="col"><span class="l">{{ c1L0 }}</span></span><span class="st" data-if="c1S0 != ''" data-class-take="c1SC0 == 'take'" data-class-hand="c1SC0 == 'hand'">{{ c1S0 }}</span><span class="tag" data-if="c1T0 != ''">{{ c1T0 }}</span></button><button id="c1_k1" class="trow" data-if="c1V1" data-class-sel="c1Sel1"><span class="icon" data-class-staff="c1K1 == 'staff'"></span><span class="col"><span class="l">{{ c1L1 }}</span></span><span class="st" data-if="c1S1 != ''" data-class-take="c1SC1 == 'take'" data-class-hand="c1SC1 == 'hand'">{{ c1S1 }}</span><span class="tag" data-if="c1T1 != ''">{{ c1T1 }}</span></button><button id="c1_k2" class="trow" data-if="c1V2" data-class-sel="c1Sel2"><span class="icon" data-class-staff="c1K2 == 'staff'"></span><span class="col"><span class="l">{{ c1L2 }}</span></span><span class="st" data-if="c1S2 != ''" data-class-take="c1SC2 == 'take'" data-class-hand="c1SC2 == 'hand'">{{ c1S2 }}</span><span class="tag" data-if="c1T2 != ''">{{ c1T2 }}</span></button><button id="c1_k3" class="trow" data-if="c1V3" data-class-sel="c1Sel3"><span class="icon" data-class-staff="c1K3 == 'staff'"></span><span class="col"><span class="l">{{ c1L3 }}</span></span><span class="st" data-if="c1S3 != ''" data-class-take="c1SC3 == 'take'" data-class-hand="c1SC3 == 'hand'">{{ c1S3 }}</span><span class="tag" data-if="c1T3 != ''">{{ c1T3 }}</span></button><button id="c1_k4" class="trow" data-if="c1V4" data-class-sel="c1Sel4"><span class="icon" data-class-staff="c1K4 == 'staff'"></span><span class="col"><span class="l">{{ c1L4 }}</span></span><span class="st" data-if="c1S4 != ''" data-class-take="c1SC4 == 'take'" data-class-hand="c1SC4 == 'hand'">{{ c1S4 }}</span><span class="tag" data-if="c1T4 != ''">{{ c1T4 }}</span></button><button id="c1_k5" class="trow" data-if="c1V5" data-class-sel="c1Sel5"><span class="icon" data-class-staff="c1K5 == 'staff'"></span><span class="col"><span class="l">{{ c1L5 }}</span></span><span class="st" data-if="c1S5 != ''" data-class-take="c1SC5 == 'take'" data-class-hand="c1SC5 == 'hand'">{{ c1S5 }}</span><span class="tag" data-if="c1T5 != ''">{{ c1T5 }}</span></button><button id="c1_k6" class="trow" data-if="c1V6" data-class-sel="c1Sel6"><span class="icon" data-class-staff="c1K6 == 'staff'"></span><span class="col"><span class="l">{{ c1L6 }}</span></span><span class="st" data-if="c1S6 != ''" data-class-take="c1SC6 == 'take'" data-class-hand="c1SC6 == 'hand'">{{ c1S6 }}</span><span class="tag" data-if="c1T6 != ''">{{ c1T6 }}</span></button><button id="c1_k7" class="trow" data-if="c1V7" data-class-sel="c1Sel7"><span class="icon" data-class-staff="c1K7 == 'staff'"></span><span class="col"><span class="l">{{ c1L7 }}</span></span><span class="st" data-if="c1S7 != ''" data-class-take="c1SC7 == 'take'" data-class-hand="c1SC7 == 'hand'">{{ c1S7 }}</span><span class="tag" data-if="c1T7 != ''">{{ c1T7 }}</span></button><button id="c1_k8" class="trow" data-if="c1V8" data-class-sel="c1Sel8"><span class="icon" data-class-staff="c1K8 == 'staff'"></span><span class="col"><span class="l">{{ c1L8 }}</span></span><span class="st" data-if="c1S8 != ''" data-class-take="c1SC8 == 'take'" data-class-hand="c1SC8 == 'hand'">{{ c1S8 }}</span><span class="tag" data-if="c1T8 != ''">{{ c1T8 }}</span></button><button id="c1_k9" class="trow" data-if="c1V9" data-class-sel="c1Sel9"><span class="icon" data-class-staff="c1K9 == 'staff'"></span><span class="col"><span class="l">{{ c1L9 }}</span></span><span class="st" data-if="c1S9 != ''" data-class-take="c1SC9 == 'take'" data-class-hand="c1SC9 == 'hand'">{{ c1S9 }}</span><span class="tag" data-if="c1T9 != ''">{{ c1T9 }}</span></button><button id="c1_k10" class="trow" data-if="c1V10" data-class-sel="c1Sel10"><span class="icon" data-class-staff="c1K10 == 'staff'"></span><span class="col"><span class="l">{{ c1L10 }}</span></span><span class="st" data-if="c1S10 != ''" data-class-take="c1SC10 == 'take'" data-class-hand="c1SC10 == 'hand'">{{ c1S10 }}</span><span class="tag" data-if="c1T10 != ''">{{ c1T10 }}</span></button><button id="c1_k11" class="trow" data-if="c1V11" data-class-sel="c1Sel11"><span class="icon" data-class-staff="c1K11 == 'staff'"></span><span class="col"><span class="l">{{ c1L11 }}</span></span><span class="st" data-if="c1S11 != ''" data-class-take="c1SC11 == 'take'" data-class-hand="c1SC11 == 'hand'">{{ c1S11 }}</span><span class="tag" data-if="c1T11 != ''">{{ c1T11 }}</span></button><button id="c1_k12" class="trow" data-if="c1V12" data-class-sel="c1Sel12"><span class="icon" data-class-staff="c1K12 == 'staff'"></span><span class="col"><span class="l">{{ c1L12 }}</span></span><span class="st" data-if="c1S12 != ''" data-class-take="c1SC12 == 'take'" data-class-hand="c1SC12 == 'hand'">{{ c1S12 }}</span><span class="tag" data-if="c1T12 != ''">{{ c1T12 }}</span></button><button id="c1_k13" class="trow" data-if="c1V13" data-class-sel="c1Sel13"><span class="icon" data-class-staff="c1K13 == 'staff'"></span><span class="col"><span class="l">{{ c1L13 }}</span></span><span class="st" data-if="c1S13 != ''" data-class-take="c1SC13 == 'take'" data-class-hand="c1SC13 == 'hand'">{{ c1S13 }}</span><span class="tag" data-if="c1T13 != ''">{{ c1T13 }}</span></button><button id="c1_k14" class="trow" data-if="c1V14" data-class-sel="c1Sel14"><span class="icon" data-class-staff="c1K14 == 'staff'"></span><span class="col"><span class="l">{{ c1L14 }}</span></span><span class="st" data-if="c1S14 != ''" data-class-take="c1SC14 == 'take'" data-class-hand="c1SC14 == 'hand'">{{ c1S14 }}</span><span class="tag" data-if="c1T14 != ''">{{ c1T14 }}</span></button><button id="c1_k15" class="trow" data-if="c1V15" data-class-sel="c1Sel15"><span class="icon" data-class-staff="c1K15 == 'staff'"></span><span class="col"><span class="l">{{ c1L15 }}</span></span><span class="st" data-if="c1S15 != ''" data-class-take="c1SC15 == 'take'" data-class-hand="c1SC15 == 'hand'">{{ c1S15 }}</span><span class="tag" data-if="c1T15 != ''">{{ c1T15 }}</span></button>
+            </div>
+        </div>
+
+        <div class="card" data-if="mode == 'exp' || sIdx == 2">
+            <div class="head">
+                <div class="names">
+                    <span class="label" data-if="mode == 'exp'">SLOT 2</span>
+                    <span class="name" data-class-dim="c2Dim">{{ c2Tool }}</span>
+                    <span class="warn" data-if="c2Warn">Take it in hand once to holster it</span>
+                </div>
+                <button id="c2_show" class="sw"><span class="track" data-class-on="c2ShowOn"><span class="knob"></span></span></button>
+            </div>
+            <button id="c2_typebtn" class="placebtn" data-class-open="c2TypeOpen">
+                <span class="wornon">WORN ON</span><span class="place">{{ c2TypeLabel }}</span>
+                <span data-if="!c2TypeOpen"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="#FFFFFF" stroke-width="2"/></svg></span><span data-if="c2TypeOpen"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 11l5-5 5 5" fill="none" stroke="#FFFFFF" stroke-width="2"/></svg></span>
+            </button>
+            <div class="pop" data-if="c2TypeOpen">
+                <button id="c2_t_belt_l" class="opt" data-class-sel="c2On_belt_l"><span class="txt">{{ c2TL_belt_l }}</span><span class="tag" data-if="c2Tag_belt_l != ''">{{ c2Tag_belt_l }}</span></button><button id="c2_t_belt_r" class="opt" data-class-sel="c2On_belt_r"><span class="txt">{{ c2TL_belt_r }}</span><span class="tag" data-if="c2Tag_belt_r != ''">{{ c2Tag_belt_r }}</span></button><button id="c2_t_thigh_l" class="opt" data-class-sel="c2On_thigh_l"><span class="txt">{{ c2TL_thigh_l }}</span><span class="tag" data-if="c2Tag_thigh_l != ''">{{ c2Tag_thigh_l }}</span></button><button id="c2_t_thigh_r" class="opt" data-class-sel="c2On_thigh_r"><span class="txt">{{ c2TL_thigh_r }}</span><span class="tag" data-if="c2Tag_thigh_r != ''">{{ c2Tag_thigh_r }}</span></button><button id="c2_t_back" class="opt" data-class-sel="c2On_back"><span class="txt">{{ c2TL_back }}</span><span class="tag" data-if="c2Tag_back != ''">{{ c2Tag_back }}</span></button><button id="c2_t_backpack" class="opt" data-class-sel="c2On_backpack"><span class="txt">{{ c2TL_backpack }}</span><span class="tag" data-if="c2Tag_backpack != ''">{{ c2Tag_backpack }}</span></button>
+            </div>
+            <div class="duo">
+                <button id="c2_pick" class="btn2" data-if="mode == 'exp'" data-class-open="c2Open">CHOOSE TOOL</button>
+                <button id="c2_edit" class="btn2">PLACEMENT</button>
+            </div>
+            <div class="pop scroll" data-if="c2Open &amp;&amp; mode == 'exp'">
+                <button id="c2_cur" class="trow" data-if="c2VC" data-class-sel="c2SelC"><span class="icon cur"></span><span class="col"><span class="l">Current tool</span><span class="s">Whichever is in hand</span></span><span class="tag" data-if="c2TC != ''">{{ c2TC }}</span></button><button id="c2_k0" class="trow" data-if="c2V0" data-class-sel="c2Sel0"><span class="icon" data-class-staff="c2K0 == 'staff'"></span><span class="col"><span class="l">{{ c2L0 }}</span></span><span class="st" data-if="c2S0 != ''" data-class-take="c2SC0 == 'take'" data-class-hand="c2SC0 == 'hand'">{{ c2S0 }}</span><span class="tag" data-if="c2T0 != ''">{{ c2T0 }}</span></button><button id="c2_k1" class="trow" data-if="c2V1" data-class-sel="c2Sel1"><span class="icon" data-class-staff="c2K1 == 'staff'"></span><span class="col"><span class="l">{{ c2L1 }}</span></span><span class="st" data-if="c2S1 != ''" data-class-take="c2SC1 == 'take'" data-class-hand="c2SC1 == 'hand'">{{ c2S1 }}</span><span class="tag" data-if="c2T1 != ''">{{ c2T1 }}</span></button><button id="c2_k2" class="trow" data-if="c2V2" data-class-sel="c2Sel2"><span class="icon" data-class-staff="c2K2 == 'staff'"></span><span class="col"><span class="l">{{ c2L2 }}</span></span><span class="st" data-if="c2S2 != ''" data-class-take="c2SC2 == 'take'" data-class-hand="c2SC2 == 'hand'">{{ c2S2 }}</span><span class="tag" data-if="c2T2 != ''">{{ c2T2 }}</span></button><button id="c2_k3" class="trow" data-if="c2V3" data-class-sel="c2Sel3"><span class="icon" data-class-staff="c2K3 == 'staff'"></span><span class="col"><span class="l">{{ c2L3 }}</span></span><span class="st" data-if="c2S3 != ''" data-class-take="c2SC3 == 'take'" data-class-hand="c2SC3 == 'hand'">{{ c2S3 }}</span><span class="tag" data-if="c2T3 != ''">{{ c2T3 }}</span></button><button id="c2_k4" class="trow" data-if="c2V4" data-class-sel="c2Sel4"><span class="icon" data-class-staff="c2K4 == 'staff'"></span><span class="col"><span class="l">{{ c2L4 }}</span></span><span class="st" data-if="c2S4 != ''" data-class-take="c2SC4 == 'take'" data-class-hand="c2SC4 == 'hand'">{{ c2S4 }}</span><span class="tag" data-if="c2T4 != ''">{{ c2T4 }}</span></button><button id="c2_k5" class="trow" data-if="c2V5" data-class-sel="c2Sel5"><span class="icon" data-class-staff="c2K5 == 'staff'"></span><span class="col"><span class="l">{{ c2L5 }}</span></span><span class="st" data-if="c2S5 != ''" data-class-take="c2SC5 == 'take'" data-class-hand="c2SC5 == 'hand'">{{ c2S5 }}</span><span class="tag" data-if="c2T5 != ''">{{ c2T5 }}</span></button><button id="c2_k6" class="trow" data-if="c2V6" data-class-sel="c2Sel6"><span class="icon" data-class-staff="c2K6 == 'staff'"></span><span class="col"><span class="l">{{ c2L6 }}</span></span><span class="st" data-if="c2S6 != ''" data-class-take="c2SC6 == 'take'" data-class-hand="c2SC6 == 'hand'">{{ c2S6 }}</span><span class="tag" data-if="c2T6 != ''">{{ c2T6 }}</span></button><button id="c2_k7" class="trow" data-if="c2V7" data-class-sel="c2Sel7"><span class="icon" data-class-staff="c2K7 == 'staff'"></span><span class="col"><span class="l">{{ c2L7 }}</span></span><span class="st" data-if="c2S7 != ''" data-class-take="c2SC7 == 'take'" data-class-hand="c2SC7 == 'hand'">{{ c2S7 }}</span><span class="tag" data-if="c2T7 != ''">{{ c2T7 }}</span></button><button id="c2_k8" class="trow" data-if="c2V8" data-class-sel="c2Sel8"><span class="icon" data-class-staff="c2K8 == 'staff'"></span><span class="col"><span class="l">{{ c2L8 }}</span></span><span class="st" data-if="c2S8 != ''" data-class-take="c2SC8 == 'take'" data-class-hand="c2SC8 == 'hand'">{{ c2S8 }}</span><span class="tag" data-if="c2T8 != ''">{{ c2T8 }}</span></button><button id="c2_k9" class="trow" data-if="c2V9" data-class-sel="c2Sel9"><span class="icon" data-class-staff="c2K9 == 'staff'"></span><span class="col"><span class="l">{{ c2L9 }}</span></span><span class="st" data-if="c2S9 != ''" data-class-take="c2SC9 == 'take'" data-class-hand="c2SC9 == 'hand'">{{ c2S9 }}</span><span class="tag" data-if="c2T9 != ''">{{ c2T9 }}</span></button><button id="c2_k10" class="trow" data-if="c2V10" data-class-sel="c2Sel10"><span class="icon" data-class-staff="c2K10 == 'staff'"></span><span class="col"><span class="l">{{ c2L10 }}</span></span><span class="st" data-if="c2S10 != ''" data-class-take="c2SC10 == 'take'" data-class-hand="c2SC10 == 'hand'">{{ c2S10 }}</span><span class="tag" data-if="c2T10 != ''">{{ c2T10 }}</span></button><button id="c2_k11" class="trow" data-if="c2V11" data-class-sel="c2Sel11"><span class="icon" data-class-staff="c2K11 == 'staff'"></span><span class="col"><span class="l">{{ c2L11 }}</span></span><span class="st" data-if="c2S11 != ''" data-class-take="c2SC11 == 'take'" data-class-hand="c2SC11 == 'hand'">{{ c2S11 }}</span><span class="tag" data-if="c2T11 != ''">{{ c2T11 }}</span></button><button id="c2_k12" class="trow" data-if="c2V12" data-class-sel="c2Sel12"><span class="icon" data-class-staff="c2K12 == 'staff'"></span><span class="col"><span class="l">{{ c2L12 }}</span></span><span class="st" data-if="c2S12 != ''" data-class-take="c2SC12 == 'take'" data-class-hand="c2SC12 == 'hand'">{{ c2S12 }}</span><span class="tag" data-if="c2T12 != ''">{{ c2T12 }}</span></button><button id="c2_k13" class="trow" data-if="c2V13" data-class-sel="c2Sel13"><span class="icon" data-class-staff="c2K13 == 'staff'"></span><span class="col"><span class="l">{{ c2L13 }}</span></span><span class="st" data-if="c2S13 != ''" data-class-take="c2SC13 == 'take'" data-class-hand="c2SC13 == 'hand'">{{ c2S13 }}</span><span class="tag" data-if="c2T13 != ''">{{ c2T13 }}</span></button><button id="c2_k14" class="trow" data-if="c2V14" data-class-sel="c2Sel14"><span class="icon" data-class-staff="c2K14 == 'staff'"></span><span class="col"><span class="l">{{ c2L14 }}</span></span><span class="st" data-if="c2S14 != ''" data-class-take="c2SC14 == 'take'" data-class-hand="c2SC14 == 'hand'">{{ c2S14 }}</span><span class="tag" data-if="c2T14 != ''">{{ c2T14 }}</span></button><button id="c2_k15" class="trow" data-if="c2V15" data-class-sel="c2Sel15"><span class="icon" data-class-staff="c2K15 == 'staff'"></span><span class="col"><span class="l">{{ c2L15 }}</span></span><span class="st" data-if="c2S15 != ''" data-class-take="c2SC15 == 'take'" data-class-hand="c2SC15 == 'hand'">{{ c2S15 }}</span><span class="tag" data-if="c2T15 != ''">{{ c2T15 }}</span></button>
+            </div>
+        </div>
+
+        <div class="card" data-if="mode == 'exp' || sIdx == 3">
+            <div class="head">
+                <div class="names">
+                    <span class="label" data-if="mode == 'exp'">SLOT 3</span>
+                    <span class="name" data-class-dim="c3Dim">{{ c3Tool }}</span>
+                    <span class="warn" data-if="c3Warn">Take it in hand once to holster it</span>
+                </div>
+                <button id="c3_show" class="sw"><span class="track" data-class-on="c3ShowOn"><span class="knob"></span></span></button>
+            </div>
+            <button id="c3_typebtn" class="placebtn" data-class-open="c3TypeOpen">
+                <span class="wornon">WORN ON</span><span class="place">{{ c3TypeLabel }}</span>
+                <span data-if="!c3TypeOpen"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="#FFFFFF" stroke-width="2"/></svg></span><span data-if="c3TypeOpen"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 11l5-5 5 5" fill="none" stroke="#FFFFFF" stroke-width="2"/></svg></span>
+            </button>
+            <div class="pop" data-if="c3TypeOpen">
+                <button id="c3_t_belt_l" class="opt" data-class-sel="c3On_belt_l"><span class="txt">{{ c3TL_belt_l }}</span><span class="tag" data-if="c3Tag_belt_l != ''">{{ c3Tag_belt_l }}</span></button><button id="c3_t_belt_r" class="opt" data-class-sel="c3On_belt_r"><span class="txt">{{ c3TL_belt_r }}</span><span class="tag" data-if="c3Tag_belt_r != ''">{{ c3Tag_belt_r }}</span></button><button id="c3_t_thigh_l" class="opt" data-class-sel="c3On_thigh_l"><span class="txt">{{ c3TL_thigh_l }}</span><span class="tag" data-if="c3Tag_thigh_l != ''">{{ c3Tag_thigh_l }}</span></button><button id="c3_t_thigh_r" class="opt" data-class-sel="c3On_thigh_r"><span class="txt">{{ c3TL_thigh_r }}</span><span class="tag" data-if="c3Tag_thigh_r != ''">{{ c3Tag_thigh_r }}</span></button><button id="c3_t_back" class="opt" data-class-sel="c3On_back"><span class="txt">{{ c3TL_back }}</span><span class="tag" data-if="c3Tag_back != ''">{{ c3Tag_back }}</span></button><button id="c3_t_backpack" class="opt" data-class-sel="c3On_backpack"><span class="txt">{{ c3TL_backpack }}</span><span class="tag" data-if="c3Tag_backpack != ''">{{ c3Tag_backpack }}</span></button>
+            </div>
+            <div class="duo">
+                <button id="c3_pick" class="btn2" data-if="mode == 'exp'" data-class-open="c3Open">CHOOSE TOOL</button>
+                <button id="c3_edit" class="btn2">PLACEMENT</button>
+            </div>
+            <div class="pop scroll" data-if="c3Open &amp;&amp; mode == 'exp'">
+                <button id="c3_cur" class="trow" data-if="c3VC" data-class-sel="c3SelC"><span class="icon cur"></span><span class="col"><span class="l">Current tool</span><span class="s">Whichever is in hand</span></span><span class="tag" data-if="c3TC != ''">{{ c3TC }}</span></button><button id="c3_k0" class="trow" data-if="c3V0" data-class-sel="c3Sel0"><span class="icon" data-class-staff="c3K0 == 'staff'"></span><span class="col"><span class="l">{{ c3L0 }}</span></span><span class="st" data-if="c3S0 != ''" data-class-take="c3SC0 == 'take'" data-class-hand="c3SC0 == 'hand'">{{ c3S0 }}</span><span class="tag" data-if="c3T0 != ''">{{ c3T0 }}</span></button><button id="c3_k1" class="trow" data-if="c3V1" data-class-sel="c3Sel1"><span class="icon" data-class-staff="c3K1 == 'staff'"></span><span class="col"><span class="l">{{ c3L1 }}</span></span><span class="st" data-if="c3S1 != ''" data-class-take="c3SC1 == 'take'" data-class-hand="c3SC1 == 'hand'">{{ c3S1 }}</span><span class="tag" data-if="c3T1 != ''">{{ c3T1 }}</span></button><button id="c3_k2" class="trow" data-if="c3V2" data-class-sel="c3Sel2"><span class="icon" data-class-staff="c3K2 == 'staff'"></span><span class="col"><span class="l">{{ c3L2 }}</span></span><span class="st" data-if="c3S2 != ''" data-class-take="c3SC2 == 'take'" data-class-hand="c3SC2 == 'hand'">{{ c3S2 }}</span><span class="tag" data-if="c3T2 != ''">{{ c3T2 }}</span></button><button id="c3_k3" class="trow" data-if="c3V3" data-class-sel="c3Sel3"><span class="icon" data-class-staff="c3K3 == 'staff'"></span><span class="col"><span class="l">{{ c3L3 }}</span></span><span class="st" data-if="c3S3 != ''" data-class-take="c3SC3 == 'take'" data-class-hand="c3SC3 == 'hand'">{{ c3S3 }}</span><span class="tag" data-if="c3T3 != ''">{{ c3T3 }}</span></button><button id="c3_k4" class="trow" data-if="c3V4" data-class-sel="c3Sel4"><span class="icon" data-class-staff="c3K4 == 'staff'"></span><span class="col"><span class="l">{{ c3L4 }}</span></span><span class="st" data-if="c3S4 != ''" data-class-take="c3SC4 == 'take'" data-class-hand="c3SC4 == 'hand'">{{ c3S4 }}</span><span class="tag" data-if="c3T4 != ''">{{ c3T4 }}</span></button><button id="c3_k5" class="trow" data-if="c3V5" data-class-sel="c3Sel5"><span class="icon" data-class-staff="c3K5 == 'staff'"></span><span class="col"><span class="l">{{ c3L5 }}</span></span><span class="st" data-if="c3S5 != ''" data-class-take="c3SC5 == 'take'" data-class-hand="c3SC5 == 'hand'">{{ c3S5 }}</span><span class="tag" data-if="c3T5 != ''">{{ c3T5 }}</span></button><button id="c3_k6" class="trow" data-if="c3V6" data-class-sel="c3Sel6"><span class="icon" data-class-staff="c3K6 == 'staff'"></span><span class="col"><span class="l">{{ c3L6 }}</span></span><span class="st" data-if="c3S6 != ''" data-class-take="c3SC6 == 'take'" data-class-hand="c3SC6 == 'hand'">{{ c3S6 }}</span><span class="tag" data-if="c3T6 != ''">{{ c3T6 }}</span></button><button id="c3_k7" class="trow" data-if="c3V7" data-class-sel="c3Sel7"><span class="icon" data-class-staff="c3K7 == 'staff'"></span><span class="col"><span class="l">{{ c3L7 }}</span></span><span class="st" data-if="c3S7 != ''" data-class-take="c3SC7 == 'take'" data-class-hand="c3SC7 == 'hand'">{{ c3S7 }}</span><span class="tag" data-if="c3T7 != ''">{{ c3T7 }}</span></button><button id="c3_k8" class="trow" data-if="c3V8" data-class-sel="c3Sel8"><span class="icon" data-class-staff="c3K8 == 'staff'"></span><span class="col"><span class="l">{{ c3L8 }}</span></span><span class="st" data-if="c3S8 != ''" data-class-take="c3SC8 == 'take'" data-class-hand="c3SC8 == 'hand'">{{ c3S8 }}</span><span class="tag" data-if="c3T8 != ''">{{ c3T8 }}</span></button><button id="c3_k9" class="trow" data-if="c3V9" data-class-sel="c3Sel9"><span class="icon" data-class-staff="c3K9 == 'staff'"></span><span class="col"><span class="l">{{ c3L9 }}</span></span><span class="st" data-if="c3S9 != ''" data-class-take="c3SC9 == 'take'" data-class-hand="c3SC9 == 'hand'">{{ c3S9 }}</span><span class="tag" data-if="c3T9 != ''">{{ c3T9 }}</span></button><button id="c3_k10" class="trow" data-if="c3V10" data-class-sel="c3Sel10"><span class="icon" data-class-staff="c3K10 == 'staff'"></span><span class="col"><span class="l">{{ c3L10 }}</span></span><span class="st" data-if="c3S10 != ''" data-class-take="c3SC10 == 'take'" data-class-hand="c3SC10 == 'hand'">{{ c3S10 }}</span><span class="tag" data-if="c3T10 != ''">{{ c3T10 }}</span></button><button id="c3_k11" class="trow" data-if="c3V11" data-class-sel="c3Sel11"><span class="icon" data-class-staff="c3K11 == 'staff'"></span><span class="col"><span class="l">{{ c3L11 }}</span></span><span class="st" data-if="c3S11 != ''" data-class-take="c3SC11 == 'take'" data-class-hand="c3SC11 == 'hand'">{{ c3S11 }}</span><span class="tag" data-if="c3T11 != ''">{{ c3T11 }}</span></button><button id="c3_k12" class="trow" data-if="c3V12" data-class-sel="c3Sel12"><span class="icon" data-class-staff="c3K12 == 'staff'"></span><span class="col"><span class="l">{{ c3L12 }}</span></span><span class="st" data-if="c3S12 != ''" data-class-take="c3SC12 == 'take'" data-class-hand="c3SC12 == 'hand'">{{ c3S12 }}</span><span class="tag" data-if="c3T12 != ''">{{ c3T12 }}</span></button><button id="c3_k13" class="trow" data-if="c3V13" data-class-sel="c3Sel13"><span class="icon" data-class-staff="c3K13 == 'staff'"></span><span class="col"><span class="l">{{ c3L13 }}</span></span><span class="st" data-if="c3S13 != ''" data-class-take="c3SC13 == 'take'" data-class-hand="c3SC13 == 'hand'">{{ c3S13 }}</span><span class="tag" data-if="c3T13 != ''">{{ c3T13 }}</span></button><button id="c3_k14" class="trow" data-if="c3V14" data-class-sel="c3Sel14"><span class="icon" data-class-staff="c3K14 == 'staff'"></span><span class="col"><span class="l">{{ c3L14 }}</span></span><span class="st" data-if="c3S14 != ''" data-class-take="c3SC14 == 'take'" data-class-hand="c3SC14 == 'hand'">{{ c3S14 }}</span><span class="tag" data-if="c3T14 != ''">{{ c3T14 }}</span></button><button id="c3_k15" class="trow" data-if="c3V15" data-class-sel="c3Sel15"><span class="icon" data-class-staff="c3K15 == 'staff'"></span><span class="col"><span class="l">{{ c3L15 }}</span></span><span class="st" data-if="c3S15 != ''" data-class-take="c3SC15 == 'take'" data-class-hand="c3SC15 == 'hand'">{{ c3S15 }}</span><span class="tag" data-if="c3T15 != ''">{{ c3T15 }}</span></button>
+            </div>
+        </div>
+        <p class="note" data-if="mode == 'exp'">A tool shows up here after it has been in your hands this session. Staffs drop out of the slot when you switch.</p>
+        <div class="foot">
+            <button id="settings" class="pill" data-if="mode == 'exp'"><span>SETTINGS</span></button>
+            <span class="grow"></span>
+            <button id="save" class="pill main"><span>SAVE</span></button>
+            <button id="close" class="pill keyed"><span>CLOSE</span></button>
+        </div>
+    </div>
+
+    <div class="panel wide" data-if="screen == 'edit'">
+        <div class="status" data-if="status != ''">{{ status }}</div>
+        <div class="hdr">
+            <span class="h1">{{ eTitle }}</span>
+            <span class="sub">{{ eTool }}</span>
+        </div>
+        <p class="fit"><span class="dot"></span><span>Fitting: the tool stays on the body while this screen is open.</span></p>
+        <div class="tabs">
+            <button id="e_p1" class="tab" data-class-on="ePreset == 1">{{ pn1 }}</button>
+            <button id="e_p2" class="tab" data-class-on="ePreset == 2">{{ pn2 }}</button>
+            <button id="e_p3" class="tab" data-class-on="ePreset == 3">{{ pn3 }}</button>
+        </div>
+        <div class="field" data-if="ePreset > 1">
+            <span class="cap">PRESET NAME</span>
+            <input type="text" id="pname" maxlength="20" data-value="pname"/>
+        </div>
+
+        <div class="sec">
+            <div class="title"><span class="dia"></span><span class="t">POSITION</span><span class="unit">m</span></div>
+            <div class="srow"><span class="ax">X</span>
+                <button id="tx_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="tx" min="-0.6" max="0.6" step="0.005" data-value="tx"/>
+                <button id="tx_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ tx | format(3) }}</span>
+            </div>
+            <div class="srow"><span class="ax">Y</span>
+                <button id="ty_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="ty" min="-0.6" max="0.6" step="0.005" data-value="ty"/>
+                <button id="ty_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ ty | format(3) }}</span>
+            </div>
+            <div class="srow"><span class="ax">Z</span>
+                <button id="tz_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="tz" min="-0.6" max="0.6" step="0.005" data-value="tz"/>
+                <button id="tz_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ tz | format(3) }}</span>
+            </div>
+        </div>
+
+        <div class="sec">
+            <div class="title"><span class="dia"></span><span class="t">ROTATION</span><span class="unit">deg</span></div>
+            <div class="srow"><span class="ax">X</span>
+                <button id="rx_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="rx" min="-180" max="180" step="1" data-value="rx"/>
+                <button id="rx_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ rx | format(0) }}</span>
+            </div>
+            <div class="srow"><span class="ax">Y</span>
+                <button id="ry_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="ry" min="-180" max="180" step="1" data-value="ry"/>
+                <button id="ry_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ ry | format(0) }}</span>
+            </div>
+            <div class="srow"><span class="ax">Z</span>
+                <button id="rz_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="rz" min="-180" max="180" step="1" data-value="rz"/>
+                <button id="rz_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ rz | format(0) }}</span>
+            </div>
+        </div>
+
+        <div class="sec">
+            <div class="title"><span class="dia"></span><span class="t">SIZE</span><span class="unit">scale</span></div>
+            <div class="srow"><span class="ax">S</span>
+                <button id="sc_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="sc" min="0.2" max="2" step="0.01" data-value="sc"/>
+                <button id="sc_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ sc | format(2) }}</span>
+            </div>
+        </div>
+
+        <div class="sec" data-if="mode == 'exp'">
+            <div class="title"><span class="dia"></span><span class="t">PIVOT</span><span class="unit">m</span></div>
+            <p class="desc">Physics swings the tool around this point. A tiny copy of the tool marks it while this screen is open.</p>
+            <div class="srow"><span class="ax">X</span>
+                <button id="qx_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="qx" min="-0.8" max="0.8" step="0.005" data-value="qx"/>
+                <button id="qx_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ qx | format(3) }}</span>
+            </div>
+            <div class="srow"><span class="ax">Y</span>
+                <button id="qy_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="qy" min="-0.8" max="0.8" step="0.005" data-value="qy"/>
+                <button id="qy_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ qy | format(3) }}</span>
+            </div>
+            <div class="srow"><span class="ax">Z</span>
+                <button id="qz_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="qz" min="-0.8" max="0.8" step="0.005" data-value="qz"/>
+                <button id="qz_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ qz | format(3) }}</span>
+            </div>
+        </div>
+        <div class="foot rule">
+            <button id="save" class="pill main mt"><span>SAVE</span></button>
+            <button id="reset" class="pill mt"><span>RESET TO DEFAULT</span></button>
+            <span class="grow"></span>
+            <button id="back" class="pill keyed mt"><span>BACK</span></button>
+        </div>
+    </div>
+
+    <div class="panel wide" data-if="screen == 'settings'">
+        <div class="status" data-if="status != ''">{{ status }}</div>
+        <div class="hdr">
+            <span class="h1">SETTINGS</span>
+            <span class="sub">Holster physics</span>
+        </div>
+        <div class="sec">
+            <div class="title"><span class="dia"></span><span class="t">PHYSICS MODE</span></div>
+            <div class="tabs">
+                <button id="phys_0" class="tab" data-class-on="physMode == 0">Off</button>
+                <button id="phys_1" class="tab" data-class-on="physMode == 1">Collide</button>
+                <button id="phys_2" class="tab" data-class-on="physMode == 2">Physics</button>
+            </div>
+            <span class="modedesc" data-if="physMode == 0">The tool sits still on the body.</span>
+            <span class="modedesc" data-if="physMode == 1">The tool is only pushed out of the body.</span>
+            <span class="modedesc" data-if="physMode == 2">The tool swings and is pushed out of the body.</span>
+        </div>
+        <div class="sec">
+            <div class="title"><span class="dia"></span><span class="t">TUNING</span></div>
+
+            <div class="srow phys"><span class="ax"><span class="k">K</span><span class="n">Stiffness</span></span>
+                <button id="pk_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="pk" min="20" max="2000" step="20" data-value="pk"/>
+                <button id="pk_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ pk | format(0) }}</span>
+            </div>
+
+            <div class="srow phys"><span class="ax"><span class="k">D</span><span class="n">Damping</span></span>
+                <button id="pc_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="pc" min="0" max="120" step="2" data-value="pc"/>
+                <button id="pc_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ pc | format(0) }}</span>
+            </div>
+
+            <div class="srow phys"><span class="ax"><span class="k">A</span><span class="n">Max swing</span></span>
+                <button id="pa_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="pa" min="0" max="45" step="1" data-value="pa"/>
+                <button id="pa_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ pa | format(0) }}&#176;</span>
+            </div>
+
+            <div class="srow phys"><span class="ax"><span class="k">L</span><span class="n">Gun length</span></span>
+                <button id="pl_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="pl" min="-0.8" max="0.8" step="0.01" data-value="pl"/>
+                <button id="pl_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ pl | format(2) }}</span>
+            </div>
+
+            <div class="srow phys"><span class="ax"><span class="k">R</span><span class="n">Gun thickness</span></span>
+                <button id="pr_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="pr" min="0.01" max="0.15" step="0.005" data-value="pr"/>
+                <button id="pr_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ pr | format(3) }}</span>
+            </div>
+
+            <div class="srow phys"><span class="ax"><span class="k">B</span><span class="n">Body thickness</span></span>
+                <button id="pb_dec" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <input type="range" id="pb" min="0.3" max="2" step="0.05" data-value="pb"/>
+                <button id="pb_inc" class="sb"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h10M7 2v10" stroke="#FFFFFF" stroke-width="2" fill="none"/></svg></button>
+                <span class="out">{{ pb | format(2) }}</span>
+            </div>
+            <p class="desc">A is the widest swing in degrees. A negative L points the gun the other way.</p>
+        </div>
+        <div class="foot rule">
+            <button id="save" class="pill main mt"><span>SAVE</span></button>
+            <span class="grow"></span>
+            <button id="back" class="pill keyed mt"><span>BACK</span></button>
+        </div>
+    </div>
+</body>
+</rml>
