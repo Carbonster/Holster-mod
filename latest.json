@@ -1,1 +1,11 @@
-{}
+{
+  "schema_version": 1,
+  "version": "0.4.1",
+  "asset": {
+    "file": "HolsterMod-0.4.1.zip",
+    "url": "https://github.com/Carbonster/Holster-mod/releases/download/v0.4.1/HolsterMod-0.4.1.zip",
+    "size": 1140169,
+    "sha256": "307486f30c6857d18d846105230289be4bd32de6bd268d7e8328632c5554cc01"
+  },
+  "notes_url": "https://github.com/Carbonster/Holster-mod/releases/tag/v0.4.1"
+}
