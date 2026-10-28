@@ -24,13 +24,15 @@ import os
 import re
 import threading
 import time
-from ctypes import _Pointer, c_bool, c_uint64
+from ctypes import _Pointer, c_bool, c_float, c_uint64
+from typing import Annotated
 
 import nmspy.data.basic_types as basic
 from nmspy.common import gameData
 from nmspy.data import types as nms
 from pymhf import Mod
 from pymhf.core.hooking import on_key_pressed, static_function_hook
+from pymhf.core.memutils import map_struct
 
 MOD_DIR = os.path.dirname(os.path.abspath(__file__))
 STATE_FILE = os.path.join(MOD_DIR, "holster.json")
@@ -174,6 +176,19 @@ def rotation_part(M):
         it = inv3(R)
         R = [[0.5 * (R[i][j] + it[j][i]) for j in range(3)] for i in range(3)]
     return [R[0] + [M[0][3]], R[1] + [M[1][3]], R[2] + [M[2][3]], [0, 0, 0, 1]]
+
+
+# TEMPORARY, for NMS build 183791: NMSpy has no working pattern for cGcPlayer::Update yet, and its
+# cGcSimulation.mPlayer offset is stale. With this on, the hook is ours and the player is the `this`
+# the hook hands over. When NMSpy catches up, set it to False - or delete this block, the
+# `if OWN_UPDATE_HOOK` branch in the class and `_player()` - and the NMSpy hook takes over.
+OWN_UPDATE_HOOK = True
+
+
+@static_function_hook(
+    "48 8B C4 F3 0F 11 48 10 55 53 56 57 48 8D A8 ? ? ? ? 48 81 EC ? ? ? ? 44 0F 29 A0"
+)
+def player_update(this: c_uint64, lfStep: Annotated[float, c_float]): ...
 
 
 class PrNodeApi:
@@ -380,6 +395,11 @@ class HolsterLiveV41(Mod):
         self.next_measure = 0.0
         self.esc_down = False
         self.next_error_log = {}
+        self.player_addr = 0
+        self.ticks = 0
+        watchdog = threading.Timer(90.0, self._watchdog)
+        watchdog.daemon = True
+        watchdog.start()
 
         self.prev_bones = {}
         self.bone_changed = {}
@@ -402,8 +422,30 @@ class HolsterLiveV41(Mod):
     def k_panel(self):
         self._push("panel")
 
-    @nms.cGcPlayer.Update.after
-    def on_update(self, this, lfStep):
+    if OWN_UPDATE_HOOK:
+        @player_update.after
+        def on_update(self, this, lfStep):
+            self.player_addr = int(this)
+            self._tick(lfStep)
+    else:
+        @nms.cGcPlayer.Update.after
+        def on_update(self, this, lfStep):
+            self._tick(lfStep)
+
+    def _player(self):
+        if OWN_UPDATE_HOOK:
+            return map_struct(self.player_addr, nms.cGcPlayer) if self.player_addr else None
+        return gameData.player
+
+    def _watchdog(self):
+        if not self.ticks:
+            logger.error("cGcPlayer::Update has not been called in 90 s. If a save is loaded, the "
+                         "signature no longer matches this game build - see framework.log")
+
+    def _tick(self, lfStep):
+        if not self.ticks:
+            logger.info(f"cGcPlayer::Update hook is live ({'own signature' if OWN_UPDATE_HOOK else 'NMSpy'})")
+        self.ticks += 1
         try:
             if self.engine is None:
                 self.engine = Engine()
@@ -444,6 +486,12 @@ class HolsterLiveV41(Mod):
             self._escape()
         self.esc_down = down
 
+    def _loud(self, where, text):
+        now = time.monotonic()
+        if now >= self.next_error_log.get(where, 0.0):
+            self.next_error_log[where] = now + 30.0
+            logger.error(text)
+
     def _error(self, where):
         now = time.monotonic()
         if now >= self.next_error_log.get(where, 0.0):
@@ -456,8 +504,9 @@ class HolsterLiveV41(Mod):
             return
         self.next_scan = time.monotonic() + 1.0
         e = self.engine
-        player = gameData.player
+        player = self._player()
         if player is None:
+            self._loud("player", "no player object from the Update hook")
             return
         top = e.top(player.mRootNode.lookupInt)
         sim = next((c for c in e.children(top) if e.name(c) == "Simulation-Root"), 0)
